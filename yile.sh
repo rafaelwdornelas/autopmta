@@ -1,12 +1,12 @@
-wget -O PowerMTA-4.5r11.rpm https://github.com/yuweng1013/autoinstall/raw/main/PowerMTA-4.5r11.rpm
+wget -O PowerMTA-4.5r11.rpm https://github.com/rafaelwdornelas/autoinstall/raw/main/PowerMTA-4.5r11.rpm
 rpm -Uvh PowerMTA-4.5r11.rpm --nodeps --force
-wget -O pmta https://github.com/yuweng1013/autoinstall/raw/main/pmta
-wget -O pmtad https://github.com/yuweng1013/autoinstall/raw/main/pmtad
-wget -O pmtahttpd https://github.com/yuweng1013/autoinstall/raw/main/pmtahttpd
-wget -O pmtasnmpd https://github.com/yuweng1013/autoinstall/raw/main/pmtasnmpd
-wget -O license https://github.com/yuweng1013/autoinstall/raw/main/license
-wget -O config https://github.com/yuweng1013/autoinstall/raw/main/config
-wget -O mykey.6068805.com.pem https://github.com/yuweng1013/autoinstall/raw/main/mykey.6068805.com.pem
+wget -O pmta https://github.com/rafaelwdornelas/autoinstall/raw/main/pmta
+wget -O pmtad https://github.com/rafaelwdornelas/autoinstall/raw/main/pmtad
+wget -O pmtahttpd https://github.com/rafaelwdornelas/autoinstall/raw/main/pmtahttpd
+wget -O pmtasnmpd https://github.com/rafaelwdornelas/autoinstall/raw/main/pmtasnmpd
+wget -O license https://github.com/rafaelwdornelas/autoinstall/raw/main/license
+wget -O config https://github.com/rafaelwdornelas/autoinstall/raw/main/config
+wget -O mykey.6068805.com.pem https://github.com/rafaelwdornelas/autoinstall/raw/main/mykey.6068805.com.pem
 
 echo -n "your pmta ip:"
 read pmtaip
