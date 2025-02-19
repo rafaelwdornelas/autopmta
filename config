@@ -1,101 +1,101 @@
+#
+# $Id: config 14069 2012-08-13 16:13:16Z juan $
+# Sample PowerMTA configuration file
+#
+
+#
+# E-mail address for mailer's administrator (please specify!)
+#
 postmaster support@QQQhostnameQQQ
- 
-host-name QQQhostnameQQQ
- 
-smtp-listener QQQipQQQ:QQQportQQQ        # listens on all local IPs
- 
-# 配置域名及域名dkim证书，证书在添加dkim dns解析时生成
-domain-key mykey, QQQhostnameQQQ, /etc/pmta/mykey.QQQhostnameQQQ.pem
- 
-<domain gmail.com>
-    max-msg-rate 250/h    # prevent "exceeded the rate limit"
-</domain>
- 
-<domain hotmail.com>
-    max-msg-rate 250/h    # prevent "exceeded the rate limit"
-</domain>
- 
-<domain 163.com>
-    max-msg-rate 250/h    # prevent "exceeded the rate limit"
-</domain>
- 
-<domain qq.com>
-    max-msg-rate 250/h    # prevent "exceeded the rate limit"
-    smtp-pattern-list backoff
-</domain>
- 
-<domain *>
-    dkim-sign yes
-    dkim-identity @QQQhostnameQQQ
-</domain>
- 
-<smtp-pattern-list backoff>
-    reply /550 Access denied/ mode=backoff
-</smtp-pattern-list>
- 
+
+#
+# IP address(es) and port(s) on which to listen for incoming SMTP connections
+#
+smtp-listener 0/0:2526        # listens on all local IPs
+
+#
+# Settings per source IP address (for incoming SMTP connections)
+#
+<source 127.0.0.1>
+    always-allow-relaying yes   # allow feeding from 127.0.0.1
+    process-x-virtual-mta yes   # allow selection of a virtual MTA
+    max-message-size unlimited
+    smtp-service yes            # allow SMTP service
+</source>
+
+<source 0/0>                 # matches all
+    log-connections no
+    log-commands    no       # WARNING: verbose!
+    log-data        no       # WARNING: even more verbose!
+</source>
+
+#
+# SMTP users (authenticated via SMTP AUTH)
+#
 <smtp-user admin>           # 认证用户名
     password admin667788      # 认证密码
     source smtpuser-auth
 </smtp-user>
- 
-<source smtpuser-auth>
-    smtp-service yes
-    always-allow-relaying yes
-    require-auth true
-    process-x-virtual-mta yes
-    default-virtual-mta pmta-pool
-    always-allow-api-submission yes
-    #remove-received-headers true
-    #add-received-header true
-    #hide-message-source true
-</source>
- 
-<source 127.0.0.1>
-    always-allow-relaying yes   # allow feeding from 127.0.0.1
-    process-x-virtual-mta yes   # allow selection of a virtual MTA
-    smtp-service yes            # allow SMTP service
-    max-message-size unlimited
-    add-message-id-header yes
-    jobid-header X-Mailer-RecptId
-    always-allow-api-submission yes
-</source>
- 
-<source 0/0>      # 允许指定网段访问
-    smtp-service yes             # allow SMTP service
-    add-message-id-header yes
-    jobid-header X-Mailer-RecptId
-    always-allow-relaying yes   
-    allow-unencrypted-plain-auth yes
-    log-connections no
-    log-commands    no           # WARNING: verbose!
-    log-data        no           # WARNING: even more verbose!
-</source>
- 
-<virtual-mta pmta-vmta1>
-    smtp-source-host QQQipQQQ QQQhostnameQQQ   # 配置服务器IP及域名
-</virtual-mta>
- 
-<virtual-mta-pool pmta-pool>
-    virtual-mta pmta-vmta1
-</virtual-mta-pool>
- 
- 
-http-mgmt-port 8080
- 
-http-access 127.0.0.1 admin
+
+#
+# Settings per outgoing domain
+#
+#<domain discard.port25.com>
+#    max-smtp-out    800
+#    route           [192.168.0.1]:2525  # bypasses DNS resolution
+#</domain>
+#
+#<domain test.port25.com>
+#    max-smtp-out    1
+#    log-connections yes
+#    log-commands    yes     # WARNING: verbose!
+#    log-resolution  no      # WARNING: verbose!
+#    log-data        no      # WARNING: even more verbose!
+#</domain>
+
+<domain *>
+    max-smtp-out    20       # max. connections *per domain*
+    bounce-after    4d12h    # 4 days, 12 hours
+    retry-after     10m      # 10 minutes
+</domain>
+
+#
+# Port used for HTTP management interface
+#
+http-mgmt-port 8085
+
+#
+# IP addresses allowed to access the HTTP management interface, one
+# per line
+#
+http-access 0/0 admin
 http-access 0/0 monitor
-http-access 168.195.49.201 admin     # 配置客户端IP允许访问
- 
+
+#
+# Whether to run the PowerMTA deamon as root
+#
 run-as-root no
- 
+
+#
+# Logging file name
+#
 log-file /var/log/pmta/pmta.log   # logrotate is used for rotation
- 
+
+#
+# Accounting file(s)
+#
 <acct-file /var/log/pmta/acct.csv>
+#    move-to /opt/myapp/pmta-acct   # configure as fit for your application
     move-interval 5m
     max-size 50M
     delete-after 8d
 </acct-file>
- 
+
+#
+# Spool directories
+#
 <spool /var/spool/pmta>
     deliver-only no
 </spool>
+
+# EOF
