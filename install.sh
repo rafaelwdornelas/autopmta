@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Atualiza o sistema e instala o unzip
-sudo dnf update -y && sudo dnf install unzip -y
+# Atualiza o sistema e instala o unzip e o curl (caso ainda não estejam instalados)
+sudo dnf update -y && sudo dnf install unzip curl -y
 
 # Baixa e descompacta o pacote PowerMTA
-wget -O PowerMTA-5.0r7.zip https://www.comerciojobsinformativos.issmarterthanyou.com/PowerMTA-5.0r7.zip
+curl -o PowerMTA-5.0r7.zip https://www.comerciojobsinformativos.issmarterthanyou.com/PowerMTA-5.0r7.zip
 unzip -q PowerMTA-5.0r7.zip
 rm -rf PowerMTA-5.0r7.zip
 
@@ -20,7 +20,7 @@ sudo rm -rf PowerMTA-5.0r7.rpm
 sudo rm -rf patch
 
 # Baixa o arquivo de configuração
-wget -O config https://raw.githubusercontent.com/rafaelwdornelas/autopmta/refs/heads/main/config
+curl -o config https://raw.githubusercontent.com/rafaelwdornelas/autopmta/refs/heads/main/config
 
 echo -n "your pmta hostname: "
 read pmtahostname
@@ -40,7 +40,6 @@ sudo systemctl restart pmta
 echo "your pmta install success!"
 echo "============================================="
 echo "pmta host: $pmtahostname"
-echo "pmta port: $pmtaport"  # Certifique-se de definir essa variável se necessário
 echo "pmta mailaccount: support@$pmtahostname"
 echo "pmta username: admin"
 echo "pmta password: admin667788"
