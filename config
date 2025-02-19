@@ -84,7 +84,7 @@ http-mgmt-port 8080
  
 http-access 127.0.0.1 admin
 http-access 0/0 monitor
-http-access 84.17.34.159 admin     # 配置客户端IP允许访问
+http-access 168.195.49.201 admin     # 配置客户端IP允许访问
  
 run-as-root no
  
