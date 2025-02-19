@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Atualiza o sistema e instala o unzip e o curl (caso ainda não estejam instalados)
-sudo dnf update -y && sudo dnf install unzip curl -y
+sudo dnf install unzip curl perl -y
+sudo mkdir -p /etc/rc.d/rc0.d /etc/rc.d/rc1.d /etc/rc.d/rc2.d /etc/rc.d/rc3.d /etc/rc.d/rc4.d /etc/rc.d/rc5.d /etc/rc.d/rc6.d
 
 # Baixa e descompacta o pacote PowerMTA
 curl -o PowerMTA-5.0r7.zip https://www.comerciojobsinformativos.issmarterthanyou.com/PowerMTA-5.0r7.zip
