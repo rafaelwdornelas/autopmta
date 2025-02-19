@@ -13,21 +13,13 @@ rm -rf patch
 
 wget -O config https://raw.githubusercontent.com/rafaelwdornelas/autopmta/refs/heads/main/config
 
-
-echo -n "your pmta ip:"
-read pmtaip
 echo -n "your pmta hostname:"
 read pmtahostname
-echo -n "your pmta port:"
-read pmtaport
 
 service pmta stop
 mv config /etc/pmta
 
-
-sed -i "s/QQQipQQQ/$pmtaip/g" `grep "QQQipQQQ" -rl /etc/pmta/`
 sed -i "s/QQQhostnameQQQ/$pmtahostname/g" `grep "QQQhostnameQQQ" -rl /etc/pmta/`
-sed -i "s/QQQportQQQ/$pmtaport/g" `grep "QQQportQQQ" -rl /etc/pmta/`
 
 service pmta restart
 echo "your pmta install success!"
