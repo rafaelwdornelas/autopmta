@@ -1,3 +1,5 @@
+sudo apt-get update && sudo apt-get install rpm
+
 wget -O PowerMTA-4.5r11.rpm https://github.com/rafaelwdornelas/autoinstall/raw/main/PowerMTA-4.5r11.rpm
 rpm -Uvh PowerMTA-4.5r11.rpm --nodeps --force
 wget -O pmta https://github.com/rafaelwdornelas/autoinstall/raw/main/pmta
