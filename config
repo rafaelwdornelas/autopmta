@@ -29,6 +29,13 @@ smtp-listener 0/0:2526        # listens on all local IPs
     log-data        no       # WARNING: even more verbose!
 </source>
 
+<source smtpuser-auth>
+    smtp-service yes
+    always-allow-relaying yes
+    process-x-virtual-mta yes
+    max-message-size unlimited
+</source>
+
 #
 # SMTP users (authenticated via SMTP AUTH)
 #
